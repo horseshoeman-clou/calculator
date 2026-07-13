@@ -1,3 +1,17 @@
+function operate(firstNumber,secondNumber,operator){
+
+    const num1 = parseFloat(firstNumber);
+    const num2 = parseFloat(secondNumber);
+
+    if(operator === "+"){
+        return num1 + num2
+    }
+    else{
+        return "working...";
+    }
+}
+
+
 const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('.row button');
 
@@ -8,6 +22,20 @@ let operator ="";
 buttons.forEach(button =>{
     button.addEventListener('click',()=> {
 
+
+        if(button.innerText === "="){
+
+            if(firstNumber !="" && secondNumber !="" && operator !=""){
+
+            result = operate(firstNumber,secondNumber,operator);
+            display.innerText = result;
+            firstNumber = result.toString();
+            secondNumber = "";
+            operator = "";
+        
+        }
+        return;
+    }
 
 
         if(button.classList.contains('clear-btn')){
@@ -30,7 +58,7 @@ buttons.forEach(button =>{
         else{
             secondNumber+=button.innerText;
         }
-        
+
         if(display.innerText === '0'){
             display.innerText = button.innerText;
         }
