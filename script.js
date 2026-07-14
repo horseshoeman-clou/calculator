@@ -2,13 +2,35 @@ function operate(firstNumber,secondNumber,operator){
 
     const num1 = parseFloat(firstNumber);
     const num2 = parseFloat(secondNumber);
+    let result;
 
     if(operator === "+"){
-        return num1 + num2
+        result = num1 + num2
     }
+    else if(operator === "-"){
+        result = num1 - num2;
+    }
+    else if ( operator === "x"){
+        result = num1 * num2;
+    }
+    else if( operator === "/"){
+        if( num2 === 0){
+            return "cannot divide by zero";
+        }
+        else{
+            result = num1 / num2;
+        }
+    }
+
     else{
-        return "working...";
+        result = "Invalid case";
     }
+    
+    if( typeof result === "number"){
+        result = Number(result.toFixed(6));
+    }
+
+    return result;
 }
 
 
@@ -28,8 +50,14 @@ buttons.forEach(button =>{
             if(firstNumber !="" && secondNumber !="" && operator !=""){
 
             result = operate(firstNumber,secondNumber,operator);
+            
+            if(result === "cannot divide by zero"){
+                firstNumber = "";
+            }
+            else{
+                firstNumber = result.toString();
+            }
             display.innerText = result;
-            firstNumber = result.toString();
             secondNumber = "";
             operator = "";
         
@@ -52,11 +80,40 @@ buttons.forEach(button =>{
             return;
         }
 
+
         if(operator ===""){
-            firstNumber+=button.innerText;
+
+            if(button.innerText === "." && firstNumber === ""){
+                display.innerText = "0.";
+                firstNumber+=display.innerText;
+                return;
+            }
+            else{
+
+                if(button.innerText === "." && firstNumber.includes(".")){
+                return;
+                }
+
+                firstNumber+=button.innerText;
+            }
         }
+    
         else{
-            secondNumber+=button.innerText;
+
+            if(button.innerText === "." && secondNumber === ""){
+                let secondText = "0.";
+                display.innerText += secondText;
+                secondNumber+=secondText;
+                hasDecimal = true;
+                return;
+            }
+            else{
+                if(button.innerText === "." && secondNumber.includes(".")){
+                return;
+                }
+
+                secondNumber+=button.innerText;
+                }
         }
 
         if(display.innerText === '0'){
