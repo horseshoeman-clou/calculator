@@ -1,3 +1,10 @@
+function clearAll(){
+    display.innerText = "0";
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+}
+
 function operate(firstNumber,secondNumber,operator){
 
     const num1 = parseFloat(firstNumber);
@@ -41,6 +48,28 @@ let firstNumber ="";
 let secondNumber ="";
 let operator ="";
 
+document.addEventListener("keydown", (event)=>{
+    let key = event.key;
+    switch(key){
+        case "*":
+            key = "x";
+            break;
+        case "Enter":
+            event.preventDefault();
+            key = "=";
+            break;
+        case "Escape":
+            clearAll();
+            break;            
+    }
+
+    buttons.forEach(button =>{
+        if(button.innerText === key){
+            button.click();
+    }
+});
+});
+
 buttons.forEach(button =>{
     button.addEventListener('click',()=> {
 
@@ -67,10 +96,7 @@ buttons.forEach(button =>{
 
 
         if(button.classList.contains('clear-btn')){
-            display.innerText = '0';
-            firstNumber="";
-            secondNumber="";
-            operator="";
+          clearAll();
             return;
         }
 
@@ -104,7 +130,6 @@ buttons.forEach(button =>{
                 let secondText = "0.";
                 display.innerText += secondText;
                 secondNumber+=secondText;
-                hasDecimal = true;
                 return;
             }
             else{
@@ -116,7 +141,7 @@ buttons.forEach(button =>{
                 }
         }
 
-        if(display.innerText === '0'){
+        if(display.innerText === '0' || display.innerText === "cannot divide by zero"){
             display.innerText = button.innerText;
         }
 
