@@ -1,3 +1,18 @@
+function backspace(){
+
+    if(secondNumber != ""){
+        secondNumber = secondNumber.slice(0,-1);
+    }
+    else if(operator != ""){
+        operator = operator.slice(0,-1);
+    }
+    else if(firstNumber != ""){
+        firstNumber = firstNumber.slice(0,-1);
+    }
+
+    display.innerText = firstNumber + operator + secondNumber || "0";
+}
+
 function clearAll(){
     display.innerText = "0";
     firstNumber = "";
@@ -60,7 +75,14 @@ document.addEventListener("keydown", (event)=>{
             break;
         case "Escape":
             clearAll();
-            break;            
+            break;
+        case "Delete":
+            clearAll();
+            break;
+        case "Backspace":
+            backspace();
+            break;
+            
     }
 
     buttons.forEach(button =>{
@@ -73,6 +95,10 @@ document.addEventListener("keydown", (event)=>{
 buttons.forEach(button =>{
     button.addEventListener('click',()=> {
 
+        if(button.classList.contains("backspace")){
+            backspace();
+            return;
+        }
 
         if(button.innerText === "="){
 
