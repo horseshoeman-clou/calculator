@@ -120,6 +120,10 @@ buttons.forEach(button =>{
         return;
     }
 
+        if(firstNumber === "" && (button.innerText === "+" || button.innerText === "-" || button.innerText === "/" || button.innerText === "x")){
+            display.innerText = 0;
+            return;
+        }
 
         if(button.classList.contains('clear-btn')){
           clearAll();
