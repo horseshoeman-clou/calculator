@@ -57,7 +57,7 @@ function operate(firstNumber,secondNumber,operator){
 
 
 const display = document.querySelector('.display');
-const buttons = document.querySelectorAll('.row button');
+const buttons = document.querySelectorAll('.row button, .top-row button');
 
 let firstNumber ="";
 let secondNumber ="";
@@ -127,6 +127,11 @@ buttons.forEach(button =>{
         }
 
         if(button.innerText === "+" || button.innerText === "-" || button.innerText === "/" || button.innerText === "x"){
+          
+            if(operator != ""){
+                return;
+            }
+
             operator = button.innerText;
             display.innerText+=operator;
             return;
@@ -152,6 +157,11 @@ buttons.forEach(button =>{
     
         else{
 
+             if(button.innerText === "x" || button.innerText === "+" || button.innerText === "-" || button.innerText === "/"){
+                    return;
+             }
+
+
             if(button.innerText === "." && secondNumber === ""){
                 let secondText = "0.";
                 display.innerText += secondText;
@@ -159,6 +169,7 @@ buttons.forEach(button =>{
                 return;
             }
             else{
+
                 if(button.innerText === "." && secondNumber.includes(".")){
                 return;
                 }
